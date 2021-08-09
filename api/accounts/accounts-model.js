@@ -12,6 +12,7 @@ const getById = id => {
 
 const create = account => {
   // resolves to the newly created account
+  // insert into accounts (name, budget) values ('account-15' '1234')
   
 }
 
