@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const mid = require('./accounts-middleware.js');
 
 router.get('/', (req, res, next) => {
   // returns an array of accounts (or an empty array if there aren't any).
@@ -9,7 +10,7 @@ router.get('/', (req, res, next) => {
   }
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', mid.checkAccountId, (req, res, next) => {
   // returns an account by the given id.
   try{
     res.json('get accounts by ID')
@@ -18,7 +19,11 @@ router.get('/:id', (req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
+router.post(
+  '/',
+  mid.checkAccountNameUnique,
+  mid.checkAccountPayload, 
+  (req, res, next) => {
   //returns the created account. Leading or trailing whitespace on budget `name` should be trimmed before saving to db.
   try{
     res.json('POSTS account')
@@ -27,7 +32,12 @@ router.post('/', (req, res, next) => {
   }
 })
 
-router.put('/:id', (req, res, next) => {
+router.put(
+  '/:id', 
+  mid.checkAccountId, 
+  mid.checkAccountPayload, 
+  mid.checkAccountNameUnique, 
+  (req, res, next) => {
   //returns the updated account. Leading or trailing whitespace on budget `name` should be trimmed before saving to db.
   try{
     res.json('updates account')
@@ -36,7 +46,7 @@ router.put('/:id', (req, res, next) => {
   }
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', mid.checkAccountId,(req, res, next) => {
   // returns the deleted account.
   try{
     res.json('deletes account')
