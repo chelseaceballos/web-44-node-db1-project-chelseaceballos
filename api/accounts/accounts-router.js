@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 router.get('/', (req, res, next) => {
-  // DO YOUR MAGIC
+  // DO YOUR MAGIC change change
 })
 
 router.get('/:id', (req, res, next) => {
