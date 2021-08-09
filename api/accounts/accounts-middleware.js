@@ -1,3 +1,5 @@
+const Account = require('./accounts-model')
+
 exports.checkAccountPayload = (req, res, next) => {
 //   - `checkAccountPayload` returns a status 400 with if `req.body` is invalid:
 
@@ -17,9 +19,17 @@ exports.checkAccountNameUnique = (req, res, next) => {
   next()
 }
 
-exports.checkAccountId = (req, res, next) => {
+exports.checkAccountId = async (req, res, next) => {
   // - `checkAccountNameUnique` returns a status 400 with a `{ message: "that name is taken" }` if the _trimmed_ `req.body.name` already exists in the database
-  console.log("checkAccountId Middleware");
-
-  next()
+  try{
+    const account = await Account.getById(req.params.id)
+    if (!account) {
+      next({ status: 400 , message: "that name is taken"})
+    } else {
+      req.account = account 
+      next()
+    }
+  } catch (err) {
+    next(err)
+  }
 }
