@@ -1,21 +1,21 @@
 const getAll = () => {
-  // DO YOUR MAGIC
+  // resolves to an array of accounts (or an empty array)
 }
 
 const getById = id => {
-  // DO YOUR MAGIC
+  // resolves to an account by the given id
 }
 
 const create = account => {
-  // DO YOUR MAGIC
+  // resolves to the newly created account
 }
 
 const updateById = (id, account) => {
-  // DO YOUR MAGIC
+  // resolves to the updated account
 }
 
 const deleteById = id => {
-  // DO YOUR MAGIC
+  // resolves to the deleted account
 }
 
 module.exports = {
