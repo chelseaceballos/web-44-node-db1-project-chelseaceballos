@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', mid.checkAccountId, async (req, res, next) => {
+router.get('/:id', mid.checkAccountId, (req, res, next) => {
 res.json(req.account)
 })
 
@@ -35,19 +35,21 @@ router.put(
   mid.checkAccountId, 
   mid.checkAccountPayload, 
   mid.checkAccountNameUnique, 
-  (req, res, next) => {
+  async (req, res, next) => {
   //returns the updated account. Leading or trailing whitespace on budget `name` should be trimmed before saving to db.
   try{
-    res.json('updates account')
+    const updatedAccount = await Account.updateById(req.params.body)
+    res.status(201).json(updatedAccount)
   } catch (err) {
     next(err)
   }
 });
 
-router.delete('/:id', mid.checkAccountId,(req, res, next) => {
+router.delete('/:id', mid.checkAccountId, async (req, res, next) => {
   // returns the deleted account.
   try{
-    res.json('deletes account')
+  await Account.deleteById(req.params.id)
+  res.json(req.account)
   } catch (err) {
     next(err)
   }
