@@ -10,10 +10,11 @@ const getById = id => {
   return db('accounts').where('id', id).first() // results in collection 
 }
 
-const create = account => {
+const create = async account => {
   // resolves to the newly created account
   // insert into accounts (name, budget) values ('account-15' '1234')
-  
+  const [id] = await db('accounts').insert(account)
+  return getById(id)
 }
 
 const updateById = (id, account) => {

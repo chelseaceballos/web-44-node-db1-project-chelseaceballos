@@ -19,14 +19,15 @@ res.json(req.account)
 router.post(
   '/',
   mid.checkAccountNameUnique,
-  mid.checkAccountPayload, 
-  (req, res, next) => {
+  mid.checkAccountPayload,
+   async (req, res, next) => {
   //returns the created account. Leading or trailing whitespace on budget `name` should be trimmed before saving to db.
-  try{
-    res.json('POSTS account')
-  } catch (err) {
-    next(err)
-  }
+ try {
+   const newAccount = await Account.create(req.body)
+  res.json(newAccount)
+ } catch (err){
+   next(err)
+ }
 })
 
 router.put(
