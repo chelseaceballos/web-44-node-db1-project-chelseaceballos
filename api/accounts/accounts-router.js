@@ -38,8 +38,8 @@ router.put(
   async (req, res, next) => {
   //returns the updated account. Leading or trailing whitespace on budget `name` should be trimmed before saving to db.
   try{
-    const updatedAccount = await Account.updateById(req.params.body)
-    res.status(201).json(updatedAccount)
+   const updated = await Account.updateById(req.params.id, req.body)
+    res.json(updated)
   } catch (err) {
     next(err)
   }

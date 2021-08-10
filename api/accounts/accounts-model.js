@@ -18,15 +18,14 @@ const create = async account => {
 }
 
 const updateById = async (id, account) => {
-  // resolves to the updated account
-
-  
+  // db('foo-table').where('id', id).update({ bar: 'new bar' })
+  await db('accounts').where('id', id).update(account)
+  return getById(id)
 }
 
 const deleteById = id => {
   // delete from account where id = 1; 
  return db('accounts').where('id', id).del()
- 
 }
 
 module.exports = {
